@@ -1,5 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, Text, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import ForeignKey
 from api.database import Base
 from api.models import image_model, category_model
 
@@ -11,5 +12,6 @@ class Product(Base):
   price = Column(Float)
   dimensions = Column(String(100))
   description = Column(Text)
+  owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
   images = relationship('Image', secondary=image_model.associative_table, back_populates="products")
   categories = relationship("Category", secondary=category_model.associative_table, back_populates="products")
