@@ -7,6 +7,12 @@ class Images(BaseModel):
   class Config:
     orm_mode = True
 
+class Categories(BaseModel):
+  name: str
+
+  class Config:
+    orm_mode = True
+
 class ProductDelete(BaseModel):
   detail: str
 
@@ -22,3 +28,4 @@ class ProductCreate(BaseModel):
 class Product(ProductCreate):
   id: int
   images: List[Images]
+  categories: List[Categories]

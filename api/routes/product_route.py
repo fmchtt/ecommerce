@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, Form, UploadFile, File, Request
 from fastapi_jwt_auth import AuthJWT
 from api.database import SessionLocal
@@ -15,16 +15,26 @@ def get_db() -> Session:
 
 routes = APIRouter(prefix="/products")
 
+
+@routes.get("/", response_model=List[Product])
+def listar_produtos(request: Request, page: Optional[int] = 1, db: Session = Depends(get_db)):
+  return product_controller.listar_produtos(request.base_url, page, db)
+
+@routes.get("/{product_id}/", response_model=Product)
+def buscar_produto(product_id: int, request: Request, db: Session = Depends(get_db)):
+  return product_controller.buscar_produto(product_id, request.base_url, db)
+
 @routes.post("/", response_model=Product)
 def criar_produto(request: Request, name: str = Form(...), price: float = Form(None), dimensions: str = Form(None), description: str = Form(None), images: List[UploadFile] = File(None), db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
   Authorize.jwt_required()
-  return product_controller.criar_produto(name, price, dimensions, description, Authorize.get_jwt_subject(), db, images)
+  return product_controller.criar_produto(name, price, dimensions, description, request.base_url, Authorize.get_jwt_subject(), db, images)
 
-@routes.get("/", response_model=List[Product])
-def listar_produtos(request: Request, db: Session = Depends(get_db)):
-  return product_controller.listar_produtos(request.base_url, db)
+@routes.patch("/add/{product_id}/category/{category_id}/", response_model=Product)
+def adicionar_categoria(product_id: int, category_id: int, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+  Authorize.jwt_required()
+  return product_controller.adicionar_categoria_produto(product_id, category_id, Authorize.get_jwt_subject(), db)
 
 @routes.delete("/{product_id}/", response_model=ProductDelete)
-def deletar_imagem(product_id: int, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
+def deletar_produto(product_id: int, Authorize: AuthJWT = Depends(), db: Session = Depends(get_db)):
   Authorize.jwt_required()
   return product_controller.deletar_produto(product_id, Authorize.get_jwt_subject(), db)
