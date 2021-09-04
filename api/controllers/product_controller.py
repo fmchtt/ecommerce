@@ -1,9 +1,7 @@
 from typing import List
 from fastapi.exceptions import HTTPException
 from sqlalchemy.orm import Session
-from api.models.product_model import Product
-from api.models.category_model import Category
-from api.models.image_model import Image
+from api.models import Product, Category, Image
 from api.services.files import save_file, delete_file
 from fastapi import UploadFile
 

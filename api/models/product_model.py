@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String, Text, Float
+from sqlalchemy import Column, Integer, String, Text, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.schema import ForeignKey
 from api.database import Base
@@ -12,6 +12,7 @@ class Product(Base):
   price = Column(Float)
   dimensions = Column(String(100))
   description = Column(Text)
-  owner_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+  owner_id = Column(Integer, ForeignKey('users.id'), nullable=False, name="fk_product_user")
   images = relationship('Image', secondary=image_model.associative_table, back_populates="products")
   categories = relationship("Category", secondary=category_model.associative_table, back_populates="products")
+  orders = relationship("AssociationOrderProduct", back_populates="products")

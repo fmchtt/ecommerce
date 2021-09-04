@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from api.models.category_model import Category
+from api.models import Category
 from fastapi import HTTPException
 
 def listar_categorias(db: Session):

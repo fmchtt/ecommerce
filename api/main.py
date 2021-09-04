@@ -6,13 +6,10 @@ from api.router import routes
 from fastapi_jwt_auth.exceptions import AuthJWTException
 from api.schemas.auth import Settings
 from fastapi_jwt_auth import AuthJWT
-from api.database import Base, engine
 import os
 import inspect, re
 from fastapi.openapi.utils import get_openapi
 from fastapi.routing import APIRoute
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="ECommerce API")
 

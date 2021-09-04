@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Form, Depends
-from api.schemas.user import UserLogin, User
+from api.schemas import UserLogin, User
 from sqlalchemy.orm import Session
 from api.database import SessionLocal
 from api.controllers import user_controller
