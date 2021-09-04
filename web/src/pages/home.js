@@ -25,7 +25,7 @@ export default function Home() {
                   <Box d="flex">
                     {product.categories.map(category => {
                       return (
-                        <Badge key={category.id + category.name}>
+                        <Badge mr="2" key={category.id + category.name}>
                           {category.name}
                         </Badge>
                       );

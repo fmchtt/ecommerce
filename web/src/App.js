@@ -29,7 +29,7 @@ function App() {
         padding="6"
         bgColor="#f2f2f2"
       >
-        <Text fontSize="3xl">Ecommerce</Text>
+        <Text as={rrd} to="/" fontSize="3xl">Ecommerce</Text>
         <Box>
           {user.id ? (
             <Menu>
@@ -40,6 +40,10 @@ function App() {
                 </HStack>
               </MenuButton>
               <MenuList>
+                <MenuItem>Meu Perfil</MenuItem>
+                <MenuItem>Meus Pedidos</MenuItem>
+                <MenuItem>Meus produtos</MenuItem>
+                <MenuItem>Criar Produto</MenuItem>
                 <MenuItem onClick={userLogout}>Logout</MenuItem>
               </MenuList>
             </Menu>
