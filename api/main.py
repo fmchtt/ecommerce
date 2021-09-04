@@ -13,7 +13,7 @@ from fastapi.routing import APIRoute
 
 app = FastAPI(title="ECommerce API")
 
-app.add_middleware(CORSMiddleware, allow_origins=['*'],allow_methods=["*"],allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=['http://localhost:3000', 'http://192.168.1.40:3000'], allow_methods=["*"], allow_headers=["*"], allow_credentials=True)
 
 if not os.path.exists('uploads'):
   os.mkdir('uploads')
