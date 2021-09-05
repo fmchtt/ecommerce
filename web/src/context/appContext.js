@@ -8,7 +8,7 @@ export function ContextProvider({ children }) {
 
   function userLogout() {
     logout()
-      .then(response => {
+      .then(() => {
         setUser({});
       })
       .catch(() => {});

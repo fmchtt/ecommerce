@@ -24,7 +24,7 @@ export default function Home() {
     <Center>
       <Grid
         padding="5"
-        templateColumns="repeat(5, 1fr)"
+        templateColumns="repeat(4, 1fr)"
         w="container.md"
         gap={5}
       >

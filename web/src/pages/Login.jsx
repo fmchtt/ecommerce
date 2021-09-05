@@ -22,18 +22,22 @@ import { useHistory } from 'react-router';
 export default function Login() {
   const { atualizarUser } = useContext(context);
   const [errorAlert, setErrorAlert] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
   function submitLogin(e) {
     e.preventDefault();
+    setLoading(true);
     login(new FormData(e.target))
       .then(a => {
         atualizarUser();
         history.push('/');
+        setLoading(false);
       })
       .catch(e => {
         setErrorAlert('Usuario ou senha incorreto!!');
+        setLoading(false);
       });
   }
 
@@ -79,7 +83,7 @@ export default function Login() {
                 />
               </Alert>
             ) : null}
-            <Button width="full" mt={4} type="submit">
+            <Button loadingText="Entrando..." isLoading={loading} width="full" mt={4} type="submit">
               Entrar
             </Button>
           </form>

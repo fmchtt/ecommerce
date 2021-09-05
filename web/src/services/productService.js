@@ -1,4 +1,4 @@
-import http from '../configs/http';
+import http, {getHeaders} from '../configs/http';
 
 export function getProducts() {
   return http.get('products/');
@@ -10,4 +10,8 @@ export function getSingleProduct(id) {
 
 export function getProductsOfUser() {
   return http.get(`/products/created/me/`);
+}
+
+export function createProduct(data) {
+  return http.post("products/", data, {headers: getHeaders()})
 }

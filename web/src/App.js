@@ -19,8 +19,9 @@ import userContext from './context/appContext';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Showcase from './pages/Showcase';
-import UserProducts from './pages/CreatedByUser';
+import UserProducts from './pages/UserProducts';
 import Register from './pages/Register';
+import ProductCreate from './pages/ProductCreate';
 
 function App() {
   const { user, userLogout } = useContext(userContext);
@@ -32,7 +33,7 @@ function App() {
         justifyContent="space-between"
         alignItems="center"
         padding="6"
-        bgColor="#f2f2f2"
+        bgColor="gray.200"
       >
         <Text as={rrd} to="/" fontSize="3xl">
           Ecommerce
@@ -41,7 +42,6 @@ function App() {
           {user.id ? (
             <>
               <LinkBox
-                as={rrd}
                 bg="gray.100"
                 p={2}
                 borderRadius="base"
@@ -81,21 +81,12 @@ function App() {
         </Box>
       </Box>
       <Switch>
-        <Route path="/products">
-          <UserProducts />
-        </Route>
-        <Route path="/product/:id">
-          <Showcase />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        <Route path="/products/create" component={ProductCreate} />
+        <Route path="/products" component={UserProducts} />
+        <Route path="/product/:id" component={Showcase} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/" component={Home} />
       </Switch>
       <Box
         height="10vh"
@@ -103,7 +94,7 @@ function App() {
         justifyContent="space-between"
         alignItems="center"
         padding="6"
-        bgColor="#f2f2f2"
+        bgColor="gray.200"
       >
         <Text as={rrd} to="/" fontSize="3xl">
           Ecommerce

@@ -26,7 +26,7 @@ export default function Showcase() {
   if (product.id) {
     return (
       <Center>
-        <Box width="container.lg" bgColor="#ededed" p={10}>
+        <Box width="container.lg" bgColor="blackAlpha.100" p={10}>
           <Heading>{product.name}</Heading>
           {product.categories.map(category => {
             return <Badge mr={2}>{category.name}</Badge>;

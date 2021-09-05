@@ -24,17 +24,21 @@ import { useHistory } from 'react-router';
 
 export default function Register() {
   const [errorAlert, setErrorAlert] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const history = useHistory();
 
   function submitRegister(e) {
+    setLoading(true);
     e.preventDefault();
     registrar(new FormData(e.target))
       .then(a => {
         history.push('/login');
+        setLoading(false);
       })
       .catch(e => {
         setErrorAlert('Erro ao registrar');
+        setLoading(false);
       });
   }
 
@@ -90,7 +94,13 @@ export default function Register() {
                 />
               </Alert>
             ) : null}
-            <Button width="full" mt={4} type="submit">
+            <Button
+              isLoading={loading}
+              loadingText="Registrando..."
+              width="full"
+              mt={4}
+              type="submit"
+            >
               Registrar
             </Button>
           </form>
