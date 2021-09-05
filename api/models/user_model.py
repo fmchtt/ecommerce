@@ -12,5 +12,6 @@ class User(Base):
     hashed_password = Column(Text)
     avatar_url = Column(String(200), nullable=True)
     is_active = Column(Boolean, default=True)
+    products = relationship("Product", back_populates="owner")
     orders = relationship("Order", secondary=order_model.associative_table_user, back_populates="owner")
     addresses = relationship("Address", back_populates="user")

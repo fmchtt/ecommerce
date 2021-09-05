@@ -13,8 +13,8 @@ def verify_password(plain_password: str, hashed_password: str):
 def hash_password(password: str):
   return pwd_context.hash(password)
 
-def login(username: str, password: str, db: Session, Authorize: AuthJWT):
-    user = get_user_by_email(username, db)
+def login(email: str, password: str, db: Session, Authorize: AuthJWT):
+    user = get_user_by_email(email, db)
     if not user:
       raise HTTPException(status_code=404, detail="Usuario nao encontrado!")
     elif not verify_password(password, user.hashed_password):

@@ -8,14 +8,14 @@ import {
   LinkBox,
   Center,
 } from '@chakra-ui/react';
-import { getProducts } from '../services/productService';
 import { Link } from 'react-router-dom';
+import { getProductsOfUser } from '../services/productService';
 
-export default function Home() {
+export default function CreatedByUser() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    getProducts().then(response => {
+    getProductsOfUser().then(response => {
       setProducts(response.data);
     });
   }, []);

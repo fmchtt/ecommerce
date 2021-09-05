@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Input,
@@ -14,26 +14,27 @@ import {
   AlertTitle,
   CloseButton,
 } from '@chakra-ui/react';
-import { FaUser as UserIcon, FaLock as LockIcon } from 'react-icons/fa';
-import context from '../context/appContext';
-import { login } from '../services/userService';
+import {
+  FaUser as UserIcon,
+  FaLock as LockIcon,
+  FaUserMd,
+} from 'react-icons/fa';
+import { registrar } from '../services/userService';
 import { useHistory } from 'react-router';
 
-export default function Login() {
-  const { atualizarUser } = useContext(context);
+export default function Register() {
   const [errorAlert, setErrorAlert] = useState(null);
 
   const history = useHistory();
 
-  function submitLogin(e) {
+  function submitRegister(e) {
     e.preventDefault();
-    login(new FormData(e.target))
+    registrar(new FormData(e.target))
       .then(a => {
-        atualizarUser();
-        history.push('/');
+        history.push('/login');
       })
       .catch(e => {
-        setErrorAlert('Usuario ou senha incorreto!!');
+        setErrorAlert('Erro ao registrar');
       });
   }
 
@@ -44,15 +45,25 @@ export default function Login() {
           <Heading>Login</Heading>
         </Box>
         <Box my={4} textAlign="left">
-          <form onSubmit={submitLogin}>
-            <FormControl>
+          <form onSubmit={submitRegister}>
+            <FormControl mt={6}>
+              <FormLabel>Seu nome</FormLabel>
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<FaUserMd />}
+                />
+                <Input type="text" placeholder="Fulano Silva" name="username" />
+              </InputGroup>
+            </FormControl>
+            <FormControl mt={6}>
               <FormLabel>Email</FormLabel>
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
                   children={<UserIcon />}
                 />
-                <Input name="email" type="email" placeholder="test@test.com" />
+                <Input type="email" placeholder="test@test.com" name="email" />
               </InputGroup>
             </FormControl>
             <FormControl mt={6}>
@@ -62,7 +73,7 @@ export default function Login() {
                   pointerEvents="none"
                   children={<LockIcon />}
                 />
-                <Input name="password" type="password" placeholder="*******" />
+                <Input type="password" placeholder="*******" name="password" />
               </InputGroup>
             </FormControl>
             {errorAlert ? (
@@ -80,7 +91,7 @@ export default function Login() {
               </Alert>
             ) : null}
             <Button width="full" mt={4} type="submit">
-              Entrar
+              Registrar
             </Button>
           </form>
         </Box>

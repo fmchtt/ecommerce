@@ -24,6 +24,11 @@ def listar_produtos(request: Request, p: Optional[str] = None, page: Optional[in
 def buscar_produto(product_id: int, request: Request, db: Session = Depends(get_db)):
   return product_controller.buscar_produto(product_id, request.base_url, db)
 
+@routes.get("/created/me/", response_model=List[Product])
+def listar_produtos_criados_pelo_usuario(request: Request, page: Optional[int] = 1, db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
+  Authorize.jwt_required()
+  return product_controller.listar_produtos_usuario(page, Authorize.get_jwt_subject(), db, request.base_url)
+
 @routes.post("/", response_model=Product)
 def criar_produto(request: Request, name: str = Form(...), price: float = Form(None), dimensions: str = Form(None), description: str = Form(None), images: List[UploadFile] = File(None), db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
   Authorize.jwt_required()

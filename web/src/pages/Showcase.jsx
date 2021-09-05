@@ -6,7 +6,7 @@ import {
   Image,
   Text,
   Badge,
-  Button
+  Button,
 } from '@chakra-ui/react';
 import { useParams } from 'react-router';
 import { getSingleProduct } from '../services/productService';
@@ -25,8 +25,8 @@ export default function Showcase() {
 
   if (product.id) {
     return (
-      <Center mt={10}>
-        <Box width="container.lg">
+      <Center>
+        <Box width="container.lg" bgColor="#ededed" p={10}>
           <Heading>{product.name}</Heading>
           {product.categories.map(category => {
             return <Badge mr={2}>{category.name}</Badge>;
@@ -40,10 +40,13 @@ export default function Showcase() {
             />
           </Box>
           <Box d="flex" justifyContent="space-between" alignItems="center">
+            <Heading as="h3" fontSize="3xl" fontWeight="300">
+              Vendedor: {product.owner.username}
+            </Heading>
             {product.price ? (
-              <Text fontSize="lg" fontWeight="300">
-                Valor: R$ {product.price}
-              </Text>
+              <Heading as="h3" fontSize="3xl" fontWeight="300">
+                R$ {product.price}
+              </Heading>
             ) : (
               <Text fontSize="lg" fontWeight="300">
                 Gratuíto
@@ -53,13 +56,17 @@ export default function Showcase() {
           </Box>
           {product.description ? (
             <>
-              <Heading size="md" my={4}>Descrição</Heading>
+              <Heading size="md" my={4}>
+                Descrição
+              </Heading>
               <Text>{product.description}</Text>
             </>
           ) : null}
           {product.dimensions ? (
             <>
-              <Heading size="md" my={4}>Dimensões</Heading>
+              <Heading size="md" my={4}>
+                Dimensões
+              </Heading>
               <Text>{product.dimensions}</Text>
             </>
           ) : null}

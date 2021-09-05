@@ -7,3 +7,7 @@ export function getProducts() {
 export function getSingleProduct(id) {
   return http.get(`/products/${id}/`);
 }
+
+export function getProductsOfUser() {
+  return http.get(`/products/created/me/`);
+}

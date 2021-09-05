@@ -1,6 +1,12 @@
 from pydantic import BaseModel
 from typing import List, Optional
 
+class User(BaseModel):
+  id: int
+  username: str
+
+  class Config:
+    orm_mode = True
 class Images(BaseModel):
   path: str
 
@@ -29,3 +35,4 @@ class Product(ProductCreate):
   id: int
   images: List[Images]
   categories: List[Categories]
+  owner: User

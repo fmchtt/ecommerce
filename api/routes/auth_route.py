@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Form
 from api.services.auth import login
 from api.schemas.auth import Login
 from fastapi.security import OAuth2PasswordRequestForm
@@ -17,8 +17,8 @@ def get_db() -> Session:
 auth_routes = APIRouter()
 
 @auth_routes.post("/login/", response_model=Login)
-def logar(user: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
-  return login(user.username, user.password, db, Authorize)
+def logar(email: str = Form(...), password: str = Form(...), db: Session = Depends(get_db), Authorize: AuthJWT = Depends()):
+  return login(email, password, db, Authorize)
 
 @auth_routes.post("/logout/", response_model=Login)
 def deslogar(Authorize: AuthJWT = Depends()):
