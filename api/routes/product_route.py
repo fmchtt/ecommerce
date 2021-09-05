@@ -17,8 +17,8 @@ routes = APIRouter(prefix="/products")
 
 
 @routes.get("/", response_model=List[Product])
-def listar_produtos(request: Request, page: Optional[int] = 1, db: Session = Depends(get_db)):
-  return product_controller.listar_produtos(request.base_url, page, db)
+def listar_produtos(request: Request, p: Optional[str] = None, page: Optional[int] = 1, db: Session = Depends(get_db)):
+  return product_controller.listar_produtos(request.base_url, page, db, p)
 
 @routes.get("/{product_id}/", response_model=Product)
 def buscar_produto(product_id: int, request: Request, db: Session = Depends(get_db)):

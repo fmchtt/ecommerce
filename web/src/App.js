@@ -14,8 +14,9 @@ import {
 } from '@chakra-ui/react';
 import { FaChevronDown } from 'react-icons/fa';
 import userContext from './context/appContext';
-import Login from './pages/login';
-import Home from './pages/home';
+import Login from './pages/Login';
+import Home from './pages/Home';
+import Showcase from './pages/Showcase';
 
 function App() {
   const { user, userLogout } = useContext(userContext);
@@ -29,7 +30,9 @@ function App() {
         padding="6"
         bgColor="#f2f2f2"
       >
-        <Text as={rrd} to="/" fontSize="3xl">Ecommerce</Text>
+        <Text as={rrd} to="/" fontSize="3xl">
+          Ecommerce
+        </Text>
         <Box>
           {user.id ? (
             <Menu>
@@ -55,6 +58,9 @@ function App() {
         </Box>
       </Box>
       <Switch>
+        <Route path="/product/:id">
+          <Showcase />
+        </Route>
         <Route path="/login">
           <Login />
         </Route>

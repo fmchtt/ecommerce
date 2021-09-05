@@ -5,7 +5,7 @@ from api.models import Product, Category, Image
 from api.services.files import save_file, delete_file
 from fastapi import UploadFile
 
-def listar_produtos(url: str, page: int, db: Session):
+def listar_produtos(url: str, page: int, db: Session, p: str = None):
   if page > 1:
     offset = (page - 1) * 20
   else:

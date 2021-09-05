@@ -43,7 +43,7 @@ export default function Login() {
 
   return (
     <Flex width="full" align="center" justifyContent="center" height="full">
-      <Box p={2}>
+      <Box borderWidth="1px" borderRadius="lg" p={6} m={20}>
         <Box textAlign="center">
           <Heading>Login</Heading>
         </Box>
