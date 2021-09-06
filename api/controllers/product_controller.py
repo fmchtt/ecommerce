@@ -11,7 +11,7 @@ def listar_produtos(url: str, page: int, db: Session, p: str = None):
   else:
     offset = 0
     
-  products = db.query(Product).offset(offset).limit(20).all()
+  products = db.query(Product).order_by(Product.id.desc()).offset(offset).limit(20).all()
 
   for product in products:
     for image in product.images:
@@ -36,7 +36,7 @@ def listar_produtos_usuario(page: int, user_id: int, db: Session, url: str):
   else:
     offset = 0
     
-  products = db.query(Product).filter(Product.owner_id == user_id).offset(offset).limit(20).all()
+  products = db.query(Product).filter(Product.owner_id == user_id).order_by(Product.id.desc()).offset(offset).limit(20).all()
 
   for product in products:
     for image in product.images:
@@ -88,7 +88,10 @@ def deletar_produto(product_id: int, user_id: int, db: Session):
     raise HTTPException(401, "Somente o criador do produto pode remover!")
 
   for image in product.images:
-    delete_file(image.path)
+    try:
+      delete_file(image.path)
+    except FileNotFoundError:
+      print("Tentativa de delete em arquivo nao encontrado")
 
   db.delete(product)
   db.commit()

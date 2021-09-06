@@ -16,4 +16,4 @@ class Product(Base):
   owner = relationship("User", back_populates="products")
   images = relationship('Image', secondary=image_model.associative_table, back_populates="products")
   categories = relationship("Category", secondary=category_model.associative_table, back_populates="products")
-  orders = relationship("AssociationOrderProduct", back_populates="products")
+  orders = relationship("AssociationOrderProduct", back_populates="products", cascade="all, delete-orphan")

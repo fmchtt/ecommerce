@@ -89,12 +89,14 @@ function App() {
         <Route path="/" component={Home} />
       </Switch>
       <Box
+        as="footer"
         height="10vh"
         display="flex"
         justifyContent="space-between"
         alignItems="center"
         padding="6"
         bgColor="gray.200"
+        mt="50"
       >
         <Text as={rrd} to="/" fontSize="3xl">
           Ecommerce

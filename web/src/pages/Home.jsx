@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Box,
   Grid,
@@ -6,13 +6,17 @@ import {
   Image,
   Badge,
   LinkBox,
-  Center,
+  Heading,
+  Button,
+  Flex,
 } from '@chakra-ui/react';
 import { getProducts } from '../services/productService';
 import { Link } from 'react-router-dom';
+import AppContext from '../context/appContext';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
+  const { categories } = useContext(AppContext);
 
   useEffect(() => {
     getProducts().then(response => {
@@ -21,13 +25,11 @@ export default function Home() {
   }, []);
 
   return (
-    <Center>
-      <Grid
-        padding="5"
-        templateColumns="repeat(4, 1fr)"
-        w="container.md"
-        gap={5}
-      >
+    <Box as="main" padding="5">
+      <Heading textAlign="center" fontWeight="300" pb="5">
+        Ultimos produtos adicionados para a venda!
+      </Heading>
+      <Grid templateColumns="repeat(6, 1fr)" w="full" gap={5}>
         {products.map(product => {
           return (
             <GridItem key={product.id} borderWidth="1px" borderRadius="lg">
@@ -63,6 +65,16 @@ export default function Home() {
           );
         })}
       </Grid>
-    </Center>
+      <Heading textAlign="center" fontWeight="300" py="5">
+        Veja nossos produtos pela categoria que procura!!
+      </Heading>
+      <Flex padding="5" w="full" gridGap={5} justifyContent="center">
+        {categories.map(category => {
+          return (
+            <Button key={category.id + category.name}>{category.name}</Button>
+          );
+        })}
+      </Flex>
+    </Box>
   );
 }

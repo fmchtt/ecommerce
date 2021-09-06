@@ -1,10 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { getCategories } from '../services/categoryService';
 import { getUser, logout } from '../services/userService';
 
 const AppContext = createContext();
 
 export function ContextProvider({ children }) {
   const [user, setUser] = useState({});
+  const [categories, setCategories] = useState([]);
 
   function userLogout() {
     logout()
@@ -24,6 +26,9 @@ export function ContextProvider({ children }) {
 
   useEffect(() => {
     atualizarUser();
+    getCategories().then(response => {
+      setCategories(response.data);
+    });
   }, []);
   return (
     <AppContext.Provider
@@ -31,6 +36,7 @@ export function ContextProvider({ children }) {
         user: user,
         userLogout: userLogout,
         atualizarUser: atualizarUser,
+        categories: categories,
       }}
     >
       {children}
